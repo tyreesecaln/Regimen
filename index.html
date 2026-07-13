@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0C0A09">
+<title>The Regimen</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230C0A09'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%238C2F2F' font-family='serif'%3E✕%3C/text%3E%3C/svg%3E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Space+Grotesk:wght@400;500;700&display=swap');
+* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; }
+body { background: #0C0A09; color: #E8E2D6; font-family: 'Space Grotesk', system-ui, sans-serif; padding: 22px 12px 40px; min-height: 100vh; }
+input { background: #12100D; border: 1px solid #3A362F; color: #E8E2D6; padding: 7px 6px; font-size: 13px; font-family: inherit; width: 56px; }
+input:focus { outline: 1px solid #8C2F2F; }
+input::placeholder { color: #3A362F; }
+button { font-family: inherit; cursor: pointer; }
+.frame { max-width: 430px; margin: 0 auto; border: 2px solid #2A2620; padding: 20px 16px 16px; }
+.title { font-family: 'Pirata One', serif; font-size: 46px; line-height: 1; letter-spacing: 1px; text-align: center; }
+.date { font-size: 11px; color: #6E675C; text-transform: uppercase; letter-spacing: 3px; margin-top: 6px; text-align: center; }
+.pointsbar { display: flex; justify-content: space-between; align-items: center; border: 1px solid #2A2620; background: #12100D; padding: 10px 14px; margin: 12px 0 10px; }
+.pointsnum { font-family: 'Pirata One', serif; font-size: 34px; color: #8C2F2F; }
+.pointslabel { font-size: 12px; color: #6E675C; text-transform: uppercase; letter-spacing: 2px; }
+.tabs { display: flex; border-bottom: 1px solid #2A2620; margin-bottom: 4px; }
+.tab { flex: 1; background: transparent; border: none; padding: 10px 0 8px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #6E675C; border-bottom: 2px solid transparent; }
+.tab.on { color: #E8E2D6; border-bottom-color: #8C2F2F; }
+.streakbox { text-align: center; border-bottom: 1px solid #2A2620; padding: 14px 0 12px; margin-bottom: 14px; }
+.streaknum { font-family: 'Pirata One', serif; font-size: 58px; line-height: 1; color: #8C2F2F; }
+.streaklabel { font-size: 10px; color: #6E675C; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
+.strip { display: flex; gap: 4px; margin-bottom: 14px; }
+.stripday { flex: 1; text-align: center; }
+.stripdot { width: 10px; height: 10px; margin: 0 auto 4px; border: 1px solid #3A362F; transform: rotate(45deg); }
+.stripletter { font-size: 10px; color: #6E675C; }
+.habit { display: flex; align-items: center; gap: 10px; width: 100%; background: transparent; border: none; border-bottom: 1px solid #1E1B16; padding: 12px 2px; color: #E8E2D6; text-align: left; }
+.checkbox { width: 26px; height: 26px; border: 2px solid #3A362F; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 17px; font-weight: 700; }
+.checkbox.on { border-color: #E8E2D6; }
+.hlabel { font-size: 15px; font-weight: 700; letter-spacing: .4px; }
+.hlabel.done { text-decoration: line-through; text-decoration-thickness: 2px; color: #6E675C; }
+.hsub { font-size: 11px; color: #6E675C; margin-top: 2px; line-height: 1.5; }
+.badge { font-size: 11px; border: 1px solid #3A2020; padding: 3px 7px; letter-spacing: 1px; white-space: nowrap; }
+.pts { font-size: 11px; color: #3A362F; width: 28px; text-align: right; flex-shrink: 0; }
+.cardtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #6E675C; }
+.sessionletter { font-family: 'Pirata One', serif; font-size: 36px; }
+.liftrow { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #1E1B16; padding: 10px 2px; }
+.smallbtn { background: transparent; border: 1px solid #3A362F; color: #B8B0A2; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 10px; white-space: nowrap; }
+.smallbtn:disabled { color: #3A362F; cursor: default; }
+.smallbtn.hot { border-color: #8C2F2F; color: #E8E2D6; }
+.bigbtn { width: 100%; margin-top: 16px; background: #12100D; border: 1px solid #8C2F2F; color: #E8E2D6; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; padding: 14px 0; }
+.bigbtn:disabled { opacity: .4; cursor: default; }
+.card { background: #12100D; border: 1px solid #2A2620; padding: 14px 14px 12px; flex: 1; }
+.counternum { font-family: 'Pirata One', serif; font-size: 34px; margin: 6px 0 8px; }
+.footer { text-align: center; font-size: 10px; color: #3A362F; letter-spacing: 3px; text-transform: uppercase; margin-top: 18px; }
+.fadein { animation: fi .25s ease; }
+@keyframes fi { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fadein { animation: none; } }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="title">The Regimen</div>
+  <div class="date" id="dateline"></div>
+  <div class="pointsbar">
+    <div><span class="pointsnum" id="balance">0</span> <span class="pointslabel">pts</span></div>
+    <div class="hsub" style="text-align:right" id="ptsmeta"></div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div id="view"></div>
+  <div class="footer">consistency beats intensity</div>
+</div>
+
+<script>
+// ═══ THE REGIMEN · standalone · localStorage ═══
+const KEY = 'regimen-v3';
+const PTS = { skinAM: 10, skinPM: 10, curls: 5, tret: 15, protein: 10, gym: 25 };
+const PTS_BARBER = 20, PTS_PHOTO = 30, PTS_KIT = 10;
+
+const HABITS = [
+  { id: 'skinAM', label: 'Skin AM', sub: 'cleanse · moisturize · SPF' },
+  { id: 'curls', label: 'Curls', sub: 'leave-in on damp hair' },
+  { id: 'skinPM', label: 'Skin PM', sub: 'cleanse · moisturize' },
+  { id: 'tret', label: 'Tretinoin', sub: 'pea-sized · dry skin only', weekly: 3 },
+  { id: 'protein', label: 'Protein', sub: '~150–170g today' },
+];
+const KIT = [
+  { id: 'tretTube', label: 'Tretinoin 0.025% (Retacnyl / Ketrel)' },
+  { id: 'spf', label: 'SPF 50' },
+  { id: 'cleanser', label: 'Gentle cleanser (CeraVe / Cetaphil)' },
+  { id: 'moisturizer', label: 'Moisturizer' },
+  { id: 'curlCream', label: 'Curl cream / leave-in' },
+  { id: 'strips', label: 'Whitening strips (month 5)' },
+];
+const SESSIONS = {
+  A: ['Leg press', 'Chest press', 'Seated cable row', 'Shoulder press', 'Cable curls'],
+  B: ['Hack squat / leg press', 'Seated leg curl', 'Lat pulldown', 'Pec deck', 'Lateral raises', 'Ab crunch'],
+};
+const MILESTONES = [
+  { day: 7, label: 'First week down', note: 'the habit exists' },
+  { day: 21, label: 'Barber cycle one', note: 'lineup stays sharp' },
+  { day: 30, label: 'First progress pic', note: 'purge phase ending' },
+  { day: 60, label: 'Skin at baseline+', note: 'strength climbing' },
+  { day: 90, label: 'The first \u201coh\u201d', note: 'people start noticing' },
+  { day: 180, label: 'Side-by-side territory', note: 'different silhouette' },
+];
+
+const todayStr = (d = new Date()) =>
+  d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+const daysBetween = (a, b) => Math.floor((new Date(b) - new Date(a)) / 864e5);
+
+const blank = () => ({
+  startDate: todayStr(), checks: {}, barberLast: null, barberCount: 0,
+  photoLast: null, photoCount: 0, gymTotal: 0, lifts: {}, kit: {},
+  rewards: [
+    { id: 'r1', name: 'Takeaway night', cost: 300, claimed: null },
+    { id: 'r2', name: 'New overshirt', cost: 800, claimed: null },
+    { id: 'r3', name: 'Quality watch', cost: 2000, claimed: null },
+    { id: 'r4', name: 'Tattoo consult booked', cost: 4000, claimed: null },
+  ],
+  spent: 0,
+});
+
+let state;
+try { state = JSON.parse(localStorage.getItem(KEY)) || blank(); }
+catch { state = blank(); }
+let tab = 'today';
+let editLift = null;
+
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { console.error(e); } };
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// derived
+const today = () => todayStr();
+const dayChecks = () => state.checks[today()] || {};
+const journeyDay = () => daysBetween(state.startDate, today()) + 1;
+const earned = () =>
+  Object.values(state.checks).reduce((s,d) => s + Object.entries(d).reduce((x,[id,on]) => x + (on ? PTS[id]||0 : 0), 0), 0)
+  + state.barberCount * PTS_BARBER + state.photoCount * PTS_PHOTO
+  + Object.values(state.kit).filter(Boolean).length * PTS_KIT;
+const balance = () => earned() - state.spent;
+const todayPts = () => Object.entries(dayChecks()).reduce((s,[id,on]) => s + (on ? PTS[id]||0 : 0), 0);
+
+function weekCount(id) {
+  const d = new Date(), dow = (d.getDay()+6)%7;
+  let n = 0;
+  for (let i = 0; i <= dow; i++) {
+    const dd = new Date(); dd.setDate(d.getDate()-(dow-i));
+    if ((state.checks[todayStr(dd)]||{})[id]) n++;
+  }
+  return n;
+}
+function streak() {
+  let s = 0; const d = new Date();
+  const t = state.checks[todayStr(d)]||{};
+  if (!(t.skinAM && t.skinPM)) d.setDate(d.getDate()-1);
+  while (true) {
+    const c = state.checks[todayStr(d)]||{};
+    if (c.skinAM && c.skinPM) { s++; d.setDate(d.getDate()-1); } else break;
+  }
+  return s;
+}
+
+// actions
+window.act = {
+  tab(t) { tab = t; editLift = null; render(); },
+  toggle(id) {
+    const cur = state.checks[today()]||{};
+    state.checks[today()] = { ...cur, [id]: !cur[id] };
+    save(); render();
+  },
+  toggleKit(id) { state.kit[id] = !state.kit[id]; save(); render(); },
+  completeSession() {
+    if (dayChecks().gym) return;
+    state.checks[today()] = { ...dayChecks(), gym: true };
+    state.gymTotal++; save(); render();
+  },
+  logBarber() { state.barberLast = today(); state.barberCount++; save(); render(); },
+  logPhoto() { state.photoLast = today(); state.photoCount++; save(); render(); },
+  editLift(ex) { editLift = ex; render(); },
+  saveLift(ex) {
+    const w = parseFloat(document.getElementById('lw').value);
+    const r = parseInt(document.getElementById('lr').value);
+    if (w || r) {
+      const prev = state.lifts[ex];
+      state.lifts[ex] = {
+        weight: w || (prev && prev.weight) || 0,
+        reps: r || (prev && prev.reps) || 0,
+        date: today(),
+        prev: prev ? { weight: prev.weight, reps: prev.reps } : null,
+      };
+      save();
+    }
+    editLift = null; render();
+  },
+  addReward() {
+    const name = document.getElementById('rn').value.trim();
+    const cost = parseInt(document.getElementById('rc').value);
+    if (!name || !cost) return;
+    state.rewards.push({ id: 'r'+Date.now(), name, cost, claimed: null });
+    save(); render();
+  },
+  claim(id) {
+    const rw = state.rewards.find(r => r.id === id);
+    if (!rw || rw.claimed || balance() < rw.cost) return;
+    state.spent += rw.cost; rw.claimed = today(); save(); render();
+  },
+  removeReward(id) {
+    state.rewards = state.rewards.filter(r => r.id !== id || r.claimed);
+    save(); render();
+  },
+};
+
+// render
+function render() {
+  document.getElementById('dateline').textContent =
+    new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' }) + ' · Day ' + journeyDay();
+  document.getElementById('balance').textContent = balance();
+  document.getElementById('ptsmeta').innerHTML = '+' + todayPts() + ' today<br>' + earned() + ' lifetime';
+  document.getElementById('tabs').innerHTML = ['today','gym','rewards','progress'].map(t =>
+    `<button class="tab ${tab===t?'on':''}" onclick="act.tab('${t}')">${t}</button>`).join('');
+
+  const v = document.getElementById('view');
+  if (tab === 'today') v.innerHTML = renderToday();
+  else if (tab === 'gym') v.innerHTML = renderGym();
+  else if (tab === 'rewards') v.innerHTML = renderRewards();
+  else v.innerHTML = renderProgress();
+}
+
+function renderToday() {
+  const dc = dayChecks();
+  let strip = '';
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const key = todayStr(d);
+    const done = Object.values(state.checks[key]||{}).filter(Boolean).length;
+    const isToday = key === today();
+    const bg = done >= 3 ? '#E8E2D6' : done > 0 ? '#6E675C' : 'transparent';
+    strip += `<div class="stripday">
+      <div class="stripdot" style="background:${bg};border-color:${isToday?'#8C2F2F':'#3A362F'}"></div>
+      <div class="stripletter" style="color:${isToday?'#8C2F2F':'#6E675C'}">${'MTWTFSS'[(d.getDay()+6)%7]}</div>
+    </div>`;
+  }
+  const habits = HABITS.map(h => {
+    const on = !!dc[h.id];
+    const wk = h.weekly ? weekCount(h.id) : null;
+    return `<button class="habit" onclick="act.toggle('${h.id}')">
+      <div class="checkbox ${on?'on':''}">${on?'✕':''}</div>
+      <div style="flex:1"><div class="hlabel ${on?'done':''}">${h.label}</div><div class="hsub">${h.sub}</div></div>
+      ${wk!==null?`<div class="badge" style="color:${wk>=h.weekly?'#E8E2D6':'#8C2F2F'}">${wk}/${h.weekly} wk</div>`:''}
+      <div class="pts">+${PTS[h.id]}</div>
+    </button>`;
+  }).join('');
+  const gymOn = !!dc.gym, gw = weekCount('gym');
+  const gymRow = `<div class="habit" style="cursor:default">
+    <div class="checkbox ${gymOn?'on':''}">${gymOn?'✕':''}</div>
+    <div style="flex:1"><div class="hlabel ${gymOn?'done':''}">Gym</div><div class="hsub">log it in the gym tab</div></div>
+    <div class="badge" style="color:${gw>=3?'#E8E2D6':'#8C2F2F'}">${gw}/3 wk</div>
+    <div class="pts">+${PTS.gym}</div>
+  </div>`;
+  return `<div class="fadein">
+    <div class="streakbox"><div class="streaknum">${streak()}</div><div class="streaklabel">day streak · skin AM + PM</div></div>
+    <div class="strip">${strip}</div>${habits}${gymRow}
+  </div>`;
+}
+
+function renderGym() {
+  const next = state.gymTotal % 2 === 0 ? 'A' : 'B';
+  const done = !!dayChecks().gym;
+  const rows = SESSIONS[next].map(ex => {
+    const lift = state.lifts[ex];
+    const improved = lift && lift.prev && (lift.weight > lift.prev.weight || (lift.weight === lift.prev.weight && lift.reps > lift.prev.reps));
+    const last = lift ? `last: ${lift.weight}kg × ${lift.reps}` : 'no log yet';
+    const controls = editLift === ex
+      ? `<input id="lw" inputmode="decimal" placeholder="kg" value="${lift?lift.weight:''}">
+         <input id="lr" inputmode="numeric" placeholder="reps" value="${lift?lift.reps:''}">
+         <button class="smallbtn hot" onclick="act.saveLift('${esc(ex)}')">✕</button>`
+      : `<button class="smallbtn" onclick="act.editLift('${esc(ex)}')">log</button>`;
+    return `<div class="liftrow">
+      <div style="flex:1"><div style="font-size:14px;font-weight:700">${ex}</div>
+      <div class="hsub">${last}${improved?' <span style="color:#8C2F2F">▲</span>':''}</div></div>
+      <div style="display:flex;gap:6px;align-items:center">${controls}</div>
+    </div>`;
+  }).join('');
+  return `<div class="fadein">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin:14px 2px 4px">
+      <span class="cardtitle">Session</span><span class="sessionletter">${next}</span></div>
+    <div class="hsub" style="margin:0 2px 12px">3 sets · 8–12 reps · last 2 hard · beat last numbers</div>
+    ${rows}
+    <button class="bigbtn" ${done?'disabled':''} onclick="act.completeSession()">
+      ${done ? 'session logged ✕' : 'complete session ' + next + ' · +' + PTS.gym + ' pts'}</button>
+    <div class="hsub" style="text-align:center;margin-top:8px">${state.gymTotal} total sessions</div>
+  </div>`;
+}
+
+function renderRewards() {
+  const bal = balance();
+  const open = state.rewards.filter(r => !r.claimed).map(r => `
+    <div class="liftrow">
+      <div style="flex:1"><div style="font-size:14px;font-weight:700">${esc(r.name)}</div>
+      <div class="hsub">${bal >= r.cost ? 'unlocked — claim it' : (r.cost - bal) + ' pts to go'}</div></div>
+      <div class="badge" style="color:${bal>=r.cost?'#E8E2D6':'#6E675C'}">${r.cost}</div>
+      <button class="smallbtn ${bal>=r.cost?'hot':''}" ${bal<r.cost?'disabled':''} onclick="act.claim('${r.id}')">claim</button>
+      <button class="smallbtn" style="border:none;padding:6px 2px" onclick="act.removeReward('${r.id}')">✕</button>
+    </div>`).join('');
+  const claimed = state.rewards.filter(r => r.claimed);
+  const claimedHtml = claimed.length
+    ? `<div class="cardtitle" style="margin:18px 2px 6px">Claimed</div>` +
+      claimed.map(r => `<div class="hsub" style="padding:4px 2px">✕ ${esc(r.name)} · ${r.cost} pts · ${r.claimed}</div>`).join('')
+    : '';
+  return `<div class="fadein">
+    <div class="hsub" style="margin:14px 2px 10px">Earn: habits +5–25 · gym +25 · fresh cut +20 · progress pic +30 · kit +10. Name your prize, set the price, claim it when you've banked it.</div>
+    ${open}
+    <div style="display:flex;gap:6px;margin:14px 0 4px">
+      <input id="rn" placeholder="new reward" style="flex:1;width:auto">
+      <input id="rc" inputmode="numeric" placeholder="pts">
+      <button class="smallbtn" onclick="act.addReward()">add</button>
+    </div>
+    ${claimedHtml}
+  </div>`;
+}
+
+function renderProgress() {
+  const bd = state.barberLast ? 21 - daysBetween(state.barberLast, today()) : null;
+  const pd = state.photoLast ? 30 - daysBetween(state.photoLast, today()) : null;
+  const counter = (v) => v === null ? '—' : v > 0 ? v + 'd' : 'DUE';
+  const col = (v) => v !== null && v <= 0 ? '#8C2F2F' : '#E8E2D6';
+  const kit = KIT.map(k => {
+    const on = !!state.kit[k.id];
+    return `<button class="habit" style="padding:9px 2px" onclick="act.toggleKit('${k.id}')">
+      <div class="checkbox ${on?'on':''}" style="width:20px;height:20px;font-size:13px">${on?'✕':''}</div>
+      <div style="flex:1;font-size:13px;color:${on?'#6E675C':'#E8E2D6'};${on?'text-decoration:line-through':''}">${k.label}</div>
+    </button>`;
+  }).join('');
+  const road = MILESTONES.map(m => {
+    const hit = journeyDay() >= m.day;
+    return `<div style="display:flex;gap:12px;align-items:flex-start;padding:8px 2px;border-bottom:1px solid #1E1B16">
+      <div style="font-family:'Pirata One',serif;font-size:22px;width:52px;color:${hit?'#8C2F2F':'#3A362F'};flex-shrink:0">${m.day}d</div>
+      <div><div style="font-size:14px;font-weight:700;color:${hit?'#E8E2D6':'#6E675C'}">${hit?'✕ ':''}${m.label}</div>
+      <div class="hsub">${m.note}</div></div>
+    </div>`;
+  }).join('');
+  return `<div class="fadein">
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <div class="card"><div class="cardtitle">Barber</div>
+        <div class="counternum" style="color:${col(bd)}">${counter(bd)}</div>
+        <button class="smallbtn" onclick="act.logBarber()">fresh cut · +${PTS_BARBER}</button></div>
+      <div class="card"><div class="cardtitle">Progress pic</div>
+        <div class="counternum" style="color:${col(pd)}">${counter(pd)}</div>
+        <button class="smallbtn" onclick="act.logPhoto()">logged · +${PTS_PHOTO}</button></div>
+    </div>
+    <div class="cardtitle" style="margin:20px 2px 8px">The kit · +${PTS_KIT} each</div>${kit}
+    <div class="cardtitle" style="margin:20px 2px 10px">The road</div>${road}
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>

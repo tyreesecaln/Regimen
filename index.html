@@ -5,139 +5,85 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0C0A09">
 <title>The Regimen</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='%23E6E6E6' font-family='sans-serif'%3E◆%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230C0A09'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='%238C2F2F' font-family='serif'%3E✕%3C/text%3E%3C/svg%3E">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Space+Grotesk:wght@400;500;700&display=swap');
 * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; }
-html, body { height: 100%; }
-body {
-  background: #000;
-  color: #C8C8C8; font-family: 'Josefin Sans', system-ui, sans-serif;
-  padding: 16px 14px 40px; min-height: 100vh;
-  position: relative; overflow-x: hidden;
-}
-body::before, body::after {
-  content: ''; position: fixed; z-index: 0; pointer-events: none;
-  width: 140vw; height: 60vh; left: -20vw; opacity: .5;
-}
-body::before {
-  top: -10vh;
-  background: radial-gradient(ellipse 60% 45% at 30% 40%, rgba(120,130,150,.10), transparent 70%),
-              radial-gradient(ellipse 50% 40% at 75% 60%, rgba(90,100,120,.07), transparent 70%);
-  animation: drift1 26s ease-in-out infinite alternate;
-}
-body::after {
-  bottom: -20vh;
-  background: radial-gradient(ellipse 55% 45% at 60% 50%, rgba(100,110,130,.08), transparent 70%);
-  animation: drift2 34s ease-in-out infinite alternate;
-}
-@keyframes drift1 { from { transform: translateX(-4%); } to { transform: translateX(5%); } }
-@keyframes drift2 { from { transform: translateX(4%); } to { transform: translateX(-5%); } }
-.frame { max-width: 430px; margin: 0 auto; position: relative; z-index: 1; }
-input { background: rgba(255,255,255,.04); border: 1px solid #3A3A3A; color: #E6E6E6; padding: 7px 6px; font-size: 14px; font-family: inherit; width: 58px; }
-input:focus { outline: 1px solid #C8C8C8; }
-input::placeholder { color: #4A4A4A; }
+body { background: #0C0A09; color: #E8E2D6; font-family: 'Space Grotesk', system-ui, sans-serif; padding: 22px 12px 40px; min-height: 100vh; }
+.frame { max-width: 430px; margin: 0 auto; border: 2px solid #2A2620; padding: 20px 16px 16px; }
+input { background: #12100D; border: 1px solid #3A362F; color: #E8E2D6; padding: 7px 6px; font-size: 13px; font-family: inherit; width: 56px; }
+input:focus { outline: 1px solid #8C2F2F; }
+input::placeholder { color: #3A362F; }
 button { font-family: inherit; cursor: pointer; }
-.compass { position: relative; height: 30px; border-bottom: 1px solid rgba(200,200,200,.25); display: flex; align-items: center; justify-content: center; gap: 34px; overflow: hidden; }
-.compass::before, .compass::after { content: ''; position: absolute; bottom: -1px; height: 1px; width: 25%; background: linear-gradient(90deg, #000, transparent); left: 0; z-index: 2; }
-.compass::after { right: 0; left: auto; background: linear-gradient(270deg, #000, transparent); }
-.compass span { font-size: 13px; font-weight: 400; color: #8A8A8A; letter-spacing: 2px; }
-.compass .n { color: #E6E6E6; font-weight: 600; }
-.compass i { font-style: normal; color: #C8C8C8; font-size: 8px; transform: translateY(-1px); }
-.title { font-weight: 300; font-size: 30px; letter-spacing: 12px; text-transform: uppercase; text-align: center; color: #E6E6E6; margin-top: 20px; text-shadow: 0 0 20px rgba(230,230,230,.25); }
-.date { font-size: 11px; color: #7A7A7A; text-transform: uppercase; letter-spacing: 4px; margin-top: 6px; text-align: center; font-weight: 300; }
-.sline { height: 1px; margin: 14px 0; background: linear-gradient(90deg, transparent, rgba(200,200,200,.4) 20%, rgba(200,200,200,.4) 80%, transparent); }
-.vitals { display: flex; gap: 10px; margin-bottom: 2px; align-items: flex-end; }
-.vital { flex: 1; }
-.vital.center { flex: 1.25; }
-.vital .vtrack { height: 8px; background: rgba(255,255,255,.06); border: 1px solid rgba(200,200,200,.28); clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0 50%); position: relative; }
-.vital .vfill { height: 100%; transition: width .5s ease; }
-.vfill.blue { background: linear-gradient(180deg, #4A7EB8, #2A5484); }
-.vfill.red { background: linear-gradient(180deg, #B84040, #7E2424); }
-.vfill.green { background: linear-gradient(180deg, #6A9A52, #45702F); }
-.vital .vval { font-size: 10px; text-align: center; margin-top: 5px; color: #8A8A8A; letter-spacing: 2px; text-transform: uppercase; font-weight: 300; }
-.levelwrap { margin: 12px 0 2px; }
-.levelrow { display: flex; justify-content: space-between; align-items: baseline; }
-.levelrow .lv { font-size: 13px; color: #E6E6E6; letter-spacing: 3px; text-transform: uppercase; font-weight: 400; }
-.levelrow .pts { font-size: 12px; color: #8A8A8A; letter-spacing: 1px; font-weight: 300; }
-.levelrow .pts b { color: #E6E6E6; font-weight: 600; }
-.xptrack { height: 4px; margin-top: 7px; background: rgba(255,255,255,.06); border: 1px solid rgba(200,200,200,.2); position: relative; }
-.xptrack::before, .xptrack::after { content: '◆'; position: absolute; top: 50%; transform: translateY(-52%); font-size: 7px; color: #C8C8C8; }
-.xptrack::before { left: -4px; } .xptrack::after { right: -4px; }
-.xpfill { height: 100%; background: linear-gradient(90deg, rgba(230,230,230,.5), #E6E6E6); transition: width .5s ease; }
-.tabs { display: flex; justify-content: space-between; margin: 16px 0 4px; padding: 0 2px; }
-.tab { background: transparent; border: none; padding: 8px 2px; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #6A6A6A; font-weight: 300; transition: color .15s; }
-.tab.on { color: #FFF; font-weight: 400; text-shadow: 0 0 14px rgba(255,255,255,.6); }
-.tab.on::before { content: '◆ '; font-size: 8px; vertical-align: 2px; }
-.qsection { font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: #8A8A8A; margin: 20px 2px 4px; font-weight: 300; text-align: center; position: relative; }
-.qsection::before, .qsection::after { content: ''; position: absolute; top: 50%; width: 18%; height: 1px; background: linear-gradient(90deg, transparent, rgba(200,200,200,.3)); left: 0; }
-.qsection::after { right: 0; left: auto; background: linear-gradient(270deg, transparent, rgba(200,200,200,.3)); }
-.quest { display: flex; align-items: center; gap: 13px; width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(200,200,200,.09); padding: 12px 2px; color: #C8C8C8; text-align: left; transition: background .15s; }
-.quest:active { background: rgba(255,255,255,.03); }
-.qmark { width: 13px; height: 13px; border: 1px solid #6A6A6A; transform: rotate(45deg); flex-shrink: 0; transition: all .2s; }
-.qmark.on { border-color: #FFF; background: #E6E6E6; box-shadow: 0 0 10px rgba(255,255,255,.5); }
-.qname { font-size: 16px; font-weight: 400; letter-spacing: 2.5px; text-transform: uppercase; color: #C8C8C8; }
-.qname.done { color: #5A5A5A; }
-.qsub { font-size: 12px; color: #6E6E6E; margin-top: 2px; line-height: 1.45; font-weight: 300; letter-spacing: .5px; }
-.badge { font-size: 11px; padding: 2px 0; letter-spacing: 2px; white-space: nowrap; color: #8A8A8A; font-weight: 300; }
-.xp { font-size: 12px; color: #E6E6E6; width: 36px; text-align: right; flex-shrink: 0; font-weight: 400; letter-spacing: 1px; }
-.streakbox { text-align: center; padding: 14px 0 2px; }
-.streaknum { font-weight: 300; font-size: 54px; line-height: 1; color: #FFF; text-shadow: 0 0 26px rgba(255,255,255,.4); }
-.streaklabel { font-size: 10px; color: #7A7A7A; text-transform: uppercase; letter-spacing: 4px; margin-top: 6px; font-weight: 300; }
-.strip { display: flex; gap: 4px; margin: 14px 0 2px; }
+.title { font-family: 'Pirata One', serif; font-size: 44px; line-height: 1; letter-spacing: 1px; text-align: center; }
+.date { font-size: 11px; color: #6E675C; text-transform: uppercase; letter-spacing: 3px; margin-top: 6px; text-align: center; }
+.statsrow { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #2A2620; border-bottom: 1px solid #2A2620; padding: 12px 2px; margin: 14px 0 10px; }
+.streaknum { font-family: 'Pirata One', serif; font-size: 46px; line-height: 1; color: #8C2F2F; }
+.statlabel { font-size: 10px; color: #6E675C; text-transform: uppercase; letter-spacing: 2px; margin-top: 3px; }
+.statright { text-align: right; }
+.lv { font-family: 'Pirata One', serif; font-size: 20px; line-height: 1.1; }
+.ptsline { font-size: 11px; color: #6E675C; margin-top: 3px; }
+.ptsline b { color: #8C2F2F; font-weight: 700; }
+.xptrack { height: 3px; background: #1E1B16; margin: 0 0 12px; }
+.xpfill { height: 100%; background: #8C2F2F; transition: width .4s ease; }
+.tabs { display: flex; border-bottom: 1px solid #2A2620; margin-bottom: 4px; }
+.tab { flex: 1; background: transparent; border: none; padding: 10px 0 8px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #6E675C; border-bottom: 2px solid transparent; font-weight: 500; }
+.tab.on { color: #E8E2D6; border-bottom-color: #8C2F2F; }
+.section { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #6E675C; margin: 18px 2px 4px; }
+.strip { display: flex; gap: 4px; margin: 12px 0 4px; }
 .stripday { flex: 1; text-align: center; }
-.stripdot { width: 8px; height: 8px; margin: 0 auto 5px; border: 1px solid #4A4A4A; transform: rotate(45deg); }
-.stripletter { font-size: 9px; color: #6A6A6A; letter-spacing: 1px; font-weight: 300; }
-.cardtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 4px; color: #8A8A8A; font-weight: 300; }
-.sessionletter { font-weight: 300; font-size: 40px; color: #FFF; text-shadow: 0 0 18px rgba(255,255,255,.4); }
-.liftrow { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(200,200,200,.09); padding: 11px 2px; }
-.smallbtn { background: transparent; border: none; color: #8A8A8A; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 7px 6px; white-space: nowrap; font-weight: 400; transition: color .15s; }
-.smallbtn:not(:disabled):hover, .smallbtn.hot { color: #FFF; text-shadow: 0 0 10px rgba(255,255,255,.5); }
-.smallbtn:disabled { color: #3A3A3A; cursor: default; }
-.bigbtn { display: block; width: 100%; margin-top: 18px; background: transparent; border: none; border-top: 1px solid rgba(200,200,200,.3); border-bottom: 1px solid rgba(200,200,200,.3); color: #E6E6E6; font-size: 14px; letter-spacing: 5px; text-transform: uppercase; padding: 14px 0; font-weight: 300; }
-.bigbtn:not(:disabled):active { color: #FFF; text-shadow: 0 0 14px rgba(255,255,255,.7); }
-.bigbtn:disabled { opacity: .3; cursor: default; }
-.card { flex: 1; text-align: center; padding: 12px 6px; border-top: 1px solid rgba(200,200,200,.2); border-bottom: 1px solid rgba(200,200,200,.2); }
-.counternum { font-weight: 300; font-size: 34px; margin: 8px 0 6px; color: #FFF; }
-.wquest { border-bottom: 1px solid rgba(200,200,200,.09); padding: 11px 2px; }
-.wbar { height: 3px; background: rgba(255,255,255,.06); margin-top: 8px; }
-.wfill { height: 100%; background: rgba(230,230,230,.85); transition: width .4s; }
-.radcount { font-size: 12px; color: #E6E6E6; font-weight: 600; white-space: nowrap; letter-spacing: 1px; }
-.footer { text-align: center; font-size: 12px; color: #5A5A5A; letter-spacing: .5px; margin-top: 24px; line-height: 1.7; padding: 0 14px; font-weight: 300; font-style: italic; }
-.fadein { animation: fi .3s ease; }
+.stripdot { width: 9px; height: 9px; margin: 0 auto 4px; border: 1px solid #3A362F; transform: rotate(45deg); }
+.stripletter { font-size: 10px; color: #6E675C; }
+.habit { display: flex; align-items: center; gap: 12px; width: 100%; background: transparent; border: none; border-bottom: 1px solid #1E1B16; padding: 12px 2px; color: #E8E2D6; text-align: left; }
+.checkbox { width: 24px; height: 24px; border: 2px solid #3A362F; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; font-weight: 700; line-height: 1; transition: border-color .15s; }
+.checkbox.on { border-color: #E8E2D6; }
+.hlabel { font-size: 15px; font-weight: 700; letter-spacing: .4px; }
+.hlabel.done { text-decoration: line-through; text-decoration-thickness: 2px; color: #6E675C; }
+.hsub { font-size: 11px; color: #6E675C; margin-top: 2px; line-height: 1.5; }
+.badge { font-size: 11px; padding: 2px 0; letter-spacing: 1px; white-space: nowrap; color: #6E675C; }
+.xp { font-size: 11px; color: #8C2F2F; width: 34px; text-align: right; flex-shrink: 0; font-weight: 700; }
+.liftrow { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #1E1B16; padding: 10px 2px; }
+.smallbtn { background: transparent; border: 1px solid #3A362F; color: #B8B0A2; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 10px; white-space: nowrap; }
+.smallbtn:disabled { color: #3A362F; cursor: default; }
+.smallbtn.hot { border-color: #8C2F2F; color: #E8E2D6; }
+.bigbtn { width: 100%; margin-top: 16px; background: transparent; border: 1px solid #8C2F2F; color: #E8E2D6; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; padding: 14px 0; font-weight: 500; }
+.bigbtn:disabled { opacity: .35; cursor: default; }
+.card { flex: 1; border: 1px solid #2A2620; padding: 12px 12px 10px; }
+.cardtitle { font-size: 10px; text-transform: uppercase; letter-spacing: 3px; color: #6E675C; }
+.counternum { font-family: 'Pirata One', serif; font-size: 32px; margin: 6px 0 8px; }
+.wquest { border-bottom: 1px solid #1E1B16; padding: 10px 2px; }
+.wbar { height: 3px; background: #1E1B16; margin-top: 7px; }
+.wfill { height: 100%; background: #8C2F2F; transition: width .4s; }
+.radcount { font-family: 'Pirata One', serif; font-size: 16px; color: #8C2F2F; white-space: nowrap; }
+.footer { text-align: center; font-size: 10px; color: #3A362F; letter-spacing: 3px; text-transform: uppercase; margin-top: 20px; }
+.fadein { animation: fi .25s ease; }
 @keyframes fi { from { opacity: 0; } to { opacity: 1; } }
-.floatxp { position: fixed; z-index: 50; pointer-events: none; font-weight: 400; font-size: 15px; letter-spacing: 2px; color: #FFF; text-shadow: 0 0 14px rgba(255,255,255,.9); animation: floatUp 1s ease-out forwards; }
-@keyframes floatUp { 0% { opacity: 0; transform: translateY(6px); } 20% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-42px); } }
-.banner { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; background: radial-gradient(ellipse at center, rgba(0,0,0,.92) 0%, rgba(0,0,0,0) 72%); animation: bannerFade 2.6s ease forwards; }
-.banner .bline { width: 78%; max-width: 340px; height: 1px; background: linear-gradient(90deg, transparent, rgba(230,230,230,.9), transparent); transform: scaleX(0); animation: lineGrow .55s ease .1s forwards; }
-.banner .btext { font-weight: 300; font-size: 24px; letter-spacing: 10px; color: #FFF; text-transform: uppercase; white-space: nowrap; text-shadow: 0 0 30px rgba(255,255,255,.8); margin: 14px 0; animation: textIn .55s ease forwards; }
-.banner .bsub { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: #A8A8A8; animation: textIn .55s ease .2s both; font-weight: 300; margin-bottom: 14px; }
+.floatxp { position: fixed; z-index: 50; pointer-events: none; font-family: 'Pirata One', serif; font-size: 18px; color: #8C2F2F; animation: floatUp 1s ease-out forwards; }
+@keyframes floatUp { 0% { opacity: 0; transform: translateY(6px); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-42px); } }
+.banner { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; background: radial-gradient(ellipse at center, rgba(12,10,9,.93) 0%, rgba(12,10,9,0) 72%); animation: bannerFade 2.4s ease forwards; }
+.banner .bline { width: 74%; max-width: 320px; height: 1px; background: linear-gradient(90deg, transparent, #8C2F2F, transparent); transform: scaleX(0); animation: lineGrow .5s ease .1s forwards; }
+.banner .btext { font-family: 'Pirata One', serif; font-size: 30px; letter-spacing: 4px; color: #E8E2D6; margin: 12px 0; animation: textIn .5s ease forwards; }
+.banner .bsub { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #8C2F2F; animation: textIn .5s ease .2s both; margin-bottom: 12px; }
 @keyframes lineGrow { to { transform: scaleX(1); } }
-@keyframes textIn { from { opacity: 0; letter-spacing: 18px; } to { opacity: 1; } }
-@keyframes bannerFade { 0%, 74% { opacity: 1; } 100% { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .fadein, .floatxp, .banner, body::before, body::after { animation-duration: .01s; } }
+@keyframes textIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bannerFade { 0%, 72% { opacity: 1; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .fadein, .floatxp, .banner { animation-duration: .01s; } }
 </style>
 </head>
 <body>
 <div class="frame">
-  <div class="compass"><span>W</span><i>◆</i><span class="n">N</span><i>◆</i><span>E</span></div>
   <div class="title">The Regimen</div>
   <div class="date" id="dateline"></div>
-  <div class="sline"></div>
-  <div class="vitals">
-    <div class="vital"><div class="vtrack"><div class="vfill blue" id="vblue"></div></div><div class="vval" id="vblueval"></div></div>
-    <div class="vital center"><div class="vtrack"><div class="vfill red" id="vred"></div></div><div class="vval" id="vredval"></div></div>
-    <div class="vital"><div class="vtrack"><div class="vfill green" id="vgreen"></div></div><div class="vval" id="vgreenval"></div></div>
+  <div class="statsrow">
+    <div><div class="streaknum" id="streak">0</div><div class="statlabel">day streak</div></div>
+    <div class="statright"><div class="lv" id="lvline"></div><div class="ptsline" id="ptsline"></div></div>
   </div>
-  <div class="levelwrap">
-    <div class="levelrow"><div class="lv" id="lvline"></div><div class="pts" id="ptsline"></div></div>
-    <div class="xptrack"><div class="xpfill" id="xpfill"></div></div>
-  </div>
+  <div class="xptrack"><div class="xpfill" id="xpfill"></div></div>
   <div class="tabs" id="tabs"></div>
   <div id="view"></div>
-  <div class="footer" id="tip"></div>
+  <div class="footer">consistency beats intensity</div>
 </div>
 
 <script>
@@ -145,32 +91,31 @@ const KEY = 'regimen-v3';
 const PTS = { skinAM: 10, skinPM: 10, curls: 5, tret: 15, protein: 10, steps: 15, sleep: 10, gym: 25 };
 const PTS_BARBER = 20, PTS_PHOTO = 30, PTS_KIT = 10, DAY_BONUS = 25;
 const LVL_XP = 500;
-const RANKS = ['Novice','Apprentice','Adept','Expert','Master','Grandmaster','Legend'];
 
 const DAILY = [
-  { id: 'skinAM', name: 'Ward Against the Sun', sub: 'rinse · Cicaplast SPF50' },
-  { id: 'curls', name: 'Tame the Mane', sub: 'leave-in on damp curls' },
-  { id: 'steps', name: 'The Long Road', sub: 'march 10,000 paces' },
-  { id: 'protein', name: 'Feast of Strength', sub: '150–170g protein' },
-  { id: 'skinPM', name: 'Evening Rites', sub: 'gentle cleanse · moisturize' },
-  { id: 'tret', name: 'The Alchemist\u2019s Salve', sub: 'Neotone or active · as tolerated', weekly: 3 },
-  { id: 'sleep', name: 'Rest at the Inn', sub: '7+ hours' },
+  { id: 'skinAM', name: 'Skin AM', sub: 'rinse · Cicaplast SPF50' },
+  { id: 'curls', name: 'Curls', sub: 'leave-in on damp hair' },
+  { id: 'steps', name: '10k Steps', sub: 'walk the long road' },
+  { id: 'protein', name: 'Protein', sub: '150–170g today' },
+  { id: 'skinPM', name: 'Skin PM', sub: 'gentle cleanse · moisturize' },
+  { id: 'tret', name: 'Treatment', sub: 'Neotone or active · as tolerated', weekly: 3 },
+  { id: 'sleep', name: 'Sleep', sub: '7+ hours last night' },
 ];
 
 const WEEKLY = [
-  { id: 'gym', target: 3, bonus: 50, name: 'The Trinity of Iron', sub: 'complete 3 training sessions' },
-  { id: 'tret', target: 3, bonus: 30, name: 'Thrice-Blessed Skin', sub: 'apply the salve 3 nights' },
-  { id: 'steps', target: 5, bonus: 40, name: 'The Great March', sub: 'walk 10k paces on 5 days' },
-  { id: 'skinAM', target: 7, bonus: 40, name: 'Seven Suns Warded', sub: 'SPF every morning, no gaps' },
+  { id: 'gym', target: 3, bonus: 50, name: 'Three Sessions', sub: 'complete 3 workouts this week' },
+  { id: 'tret', target: 3, bonus: 30, name: 'Three Treatments', sub: 'treatment on 3 nights' },
+  { id: 'steps', target: 5, bonus: 40, name: 'Five Marches', sub: '10k steps on 5 days' },
+  { id: 'skinAM', target: 7, bonus: 40, name: 'Seven Suns', sub: 'SPF every morning, no gaps' },
 ];
 
 const RADIANT = [
-  { id: 'flawless', name: 'A Flawless Seven', sub: 'every daily quest, seven days straight', pts: 200 },
-  { id: 'gauntlet', name: 'The Pilgrimage', sub: '10k paces every single day for 7 days', pts: 150 },
-  { id: 'ironmonth', name: 'Month of Iron', sub: '13+ training sessions in one calendar month', pts: 250 },
-  { id: 'cleanseven', name: 'The Ascetic\u2019s Vow', sub: 'zero junk food or takeaway for 7 days', pts: 100 },
-  { id: 'record', name: 'New Heights', sub: 'beat any lift record by 5kg or more', pts: 50 },
-  { id: 'dawn', name: 'Rise with the Sun', sub: 'complete training before 8am', pts: 30 },
+  { id: 'flawless', name: 'A Flawless Seven', sub: 'every daily, seven days straight', pts: 200 },
+  { id: 'gauntlet', name: 'The Pilgrimage', sub: '10k steps every day for 7 days', pts: 150 },
+  { id: 'ironmonth', name: 'Month of Iron', sub: '13+ sessions in one calendar month', pts: 250 },
+  { id: 'cleanseven', name: 'The Ascetic', sub: 'no junk food or takeaway for 7 days', pts: 100 },
+  { id: 'record', name: 'New Heights', sub: 'beat any lift record by 5kg+', pts: 50 },
+  { id: 'dawn', name: 'Before the Sun', sub: 'train before 8am', pts: 30 },
 ];
 
 const KIT = [
@@ -190,23 +135,10 @@ const SESSIONS = {
 const MILESTONES = [
   { day: 7, label: 'First week down', note: 'the habit exists' },
   { day: 21, label: 'Barber cycle one', note: 'lineup stays sharp' },
-  { day: 30, label: 'First likeness captured', note: 'the record begins' },
+  { day: 30, label: 'First progress pic', note: 'the record begins' },
   { day: 60, label: 'Skin at baseline+', note: 'strength climbing' },
-  { day: 90, label: 'The first \u201coh\u201d', note: 'people start noticing' },
+  { day: 90, label: 'The first "oh"', note: 'people start noticing' },
   { day: 180, label: 'Side-by-side territory', note: 'a different silhouette' },
-];
-
-const TIPS = [
-  'They say the barber of the northern quarter can sharpen any jawline in twenty-one days.',
-  'A warrior\u2019s strength is forged in the kitchen as much as the training hall.',
-  'The sun is a patient enemy. Ward against it each morning and your marks will fade.',
-  'Beat your last numbers, however small. The iron remembers.',
-  'Curls left dry grow wild and formless. Oiled, they become a crown.',
-  'Consistency slays what intensity only wounds.',
-  'No salve works in a fortnight. Give it ninety days.',
-  'Rest is not idleness. The body is rebuilt at the inn, not the training hall.',
-  'A quest abandoned at day forty was never about day forty. Return to the road.',
-  'Nobody becomes the legend in week one.',
 ];
 
 const todayStr = (d = new Date()) =>
@@ -231,7 +163,7 @@ try { state = Object.assign(blank(), JSON.parse(localStorage.getItem(KEY)) || {}
 catch { state = blank(); }
 state.radiant = state.radiant || {};
 state.side = state.side || {};
-let tab = 'quests';
+let tab = 'today';
 let editLift = null;
 
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { console.error(e); } };
@@ -276,7 +208,6 @@ const earned = () =>
   + weeklyBonusTotal() + dayBonusTotal();
 const balance = () => earned() - state.spent;
 const level = () => Math.floor(earned() / LVL_XP) + 1;
-const rank = () => RANKS[Math.min(level()-1, RANKS.length-1)];
 
 function weekCount(id) {
   const d = new Date(), dow = (d.getDay()+6)%7;
@@ -301,7 +232,7 @@ function streak() {
 function floatXP(txt, x, y) {
   const el = document.createElement('div');
   el.className = 'floatxp'; el.textContent = txt;
-  el.style.left = (x-18) + 'px'; el.style.top = (y-28) + 'px';
+  el.style.left = (x-14) + 'px'; el.style.top = (y-26) + 'px';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1100);
 }
@@ -311,11 +242,11 @@ function banner(main, sub) {
   el.innerHTML = `<div class="bline"></div><div class="btext">${esc(main)}</div>` +
     (sub ? `<div class="bsub">${esc(sub)}</div>` : '') + `<div class="bline"></div>`;
   document.body.appendChild(el);
-  setTimeout(() => el.remove(), 2700);
+  setTimeout(() => el.remove(), 2500);
 }
 function checkLevel() {
   const lv = level();
-  if (lv > (state.lastLevel || 1) && state.lastLevel !== 0) banner('Level Up', 'level ' + lv + ' · ' + rank());
+  if (lv > (state.lastLevel || 1) && state.lastLevel !== 0) banner('Level Up', 'level ' + lv);
   state.lastLevel = lv; save();
 }
 
@@ -329,8 +260,8 @@ window.act = {
     if (turningOn) {
       if (ev) floatXP('+' + (PTS[id]||0), ev.clientX || innerWidth/2, ev.clientY || 200);
       const wq = WEEKLY.find(w => w.id === id);
-      if (wq && weekCount(id) === wq.target) banner('Quest Completed', wq.name + ' · +' + wq.bonus);
-      else if (DAILY.every(h => state.checks[today()][h.id])) banner('Day Conquered', 'all daily quests · +' + DAY_BONUS);
+      if (wq && weekCount(id) === wq.target) banner('Quest Complete', wq.name + ' · +' + wq.bonus);
+      else if (DAILY.every(h => state.checks[today()][h.id])) banner('Day Conquered', 'all dailies · +' + DAY_BONUS);
     }
     checkLevel(); render();
   },
@@ -340,7 +271,7 @@ window.act = {
     state.radiant[id] = (state.radiant[id] || 0) + 1;
     save();
     if (ev) floatXP('+' + q.pts, ev.clientX || innerWidth/2, ev.clientY || 200);
-    banner('Quest Completed', q.name + ' ×' + state.radiant[id]);
+    banner('Quest Complete', q.name + ' ×' + state.radiant[id]);
     checkLevel(); render();
   },
   toggleKit(id, ev) {
@@ -355,20 +286,18 @@ window.act = {
     state.gymTotal++; save();
     if (ev) floatXP('+' + PTS.gym, ev.clientX || innerWidth/2, ev.clientY || 300);
     const wq = WEEKLY.find(w => w.id === 'gym');
-    if (weekCount('gym') === wq.target) banner('Quest Completed', wq.name + ' · +' + wq.bonus);
-    else banner('Training Complete', 'session ' + (state.gymTotal % 2 === 0 ? 'B' : 'A') + ' awaits');
+    if (weekCount('gym') === wq.target) banner('Quest Complete', wq.name + ' · +' + wq.bonus);
+    else banner('Session Complete', 'session ' + (state.gymTotal % 2 === 0 ? 'B' : 'A') + ' next');
     checkLevel(); render();
   },
   logBarber(ev) {
     state.barberLast = today(); state.barberCount++; save();
     if (ev) floatXP('+' + PTS_BARBER, ev.clientX || innerWidth/2, ev.clientY || 300);
-    banner('Fresh Blade', 'the lineup holds · +' + PTS_BARBER);
     checkLevel(); render();
   },
   logPhoto(ev) {
     state.photoLast = today(); state.photoCount++; save();
     if (ev) floatXP('+' + PTS_PHOTO, ev.clientX || innerWidth/2, ev.clientY || 300);
-    banner('Likeness Captured', 'the record grows · +' + PTS_PHOTO);
     checkLevel(); render();
   },
   editLift(ex) { editLift = ex; render(); },
@@ -385,7 +314,7 @@ window.act = {
         prev: prev ? { weight: prev.weight, reps: prev.reps } : null,
       };
       save();
-      if (improved) banner('Skill Increased', ex);
+      if (improved) banner('Record Broken', ex);
     }
     editLift = null; render();
   },
@@ -400,7 +329,7 @@ window.act = {
     const rw = state.rewards.find(r => r.id === id);
     if (!rw || rw.claimed || balance() < rw.cost) return;
     state.spent += rw.cost; rw.claimed = today(); save();
-    banner('Bounty Claimed', rw.name);
+    banner('Reward Claimed', rw.name);
     render();
   },
   removeReward(id) {
@@ -412,27 +341,21 @@ window.act = {
 function render() {
   document.getElementById('dateline').textContent =
     new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' }) + ' · day ' + journeyDay();
-  const e = earned(), lv = level(), st = streak(), gw = weekCount('gym');
-  document.getElementById('vblue').style.width = (e % LVL_XP)/LVL_XP*100 + '%';
-  document.getElementById('vblueval').textContent = (e % LVL_XP) + ' / ' + LVL_XP + ' xp';
-  document.getElementById('vred').style.width = Math.min(st/30,1)*100 + '%';
-  document.getElementById('vredval').textContent = st + 'd streak';
-  document.getElementById('vgreen').style.width = Math.min(gw/3,1)*100 + '%';
-  document.getElementById('vgreenval').textContent = gw + '/3 training';
-  document.getElementById('lvline').textContent = 'Level ' + lv + ' · ' + rank();
-  document.getElementById('ptsline').innerHTML = '<b>' + balance() + '</b> pts to spend';
+  const e = earned();
+  document.getElementById('streak').textContent = streak();
+  document.getElementById('lvline').textContent = 'Lvl ' + level();
+  document.getElementById('ptsline').innerHTML = '<b>' + balance() + '</b> pts';
   document.getElementById('xpfill').style.width = (e % LVL_XP)/LVL_XP*100 + '%';
-  document.getElementById('tabs').innerHTML = ['quests','training','bounties','journey'].map(t =>
+  document.getElementById('tabs').innerHTML = ['today','gym','rewards','journey'].map(t =>
     `<button class="tab ${tab===t?'on':''}" onclick="act.tab('${t}')">${t}</button>`).join('');
-  document.getElementById('tip').textContent = '\u201c' + TIPS[(journeyDay() + new Date().getDay()) % TIPS.length] + '\u201d';
   const v = document.getElementById('view');
-  if (tab === 'quests') v.innerHTML = renderQuests();
-  else if (tab === 'training') v.innerHTML = renderGym();
-  else if (tab === 'bounties') v.innerHTML = renderRewards();
+  if (tab === 'today') v.innerHTML = renderToday();
+  else if (tab === 'gym') v.innerHTML = renderGym();
+  else if (tab === 'rewards') v.innerHTML = renderRewards();
   else v.innerHTML = renderJourney();
 }
 
-function renderQuests() {
+function renderToday() {
   const dc = dayChecks();
   let strip = '';
   for (let i = 6; i >= 0; i--) {
@@ -440,28 +363,28 @@ function renderQuests() {
     const key = todayStr(d);
     const done = Object.values(state.checks[key]||{}).filter(Boolean).length;
     const isToday = key === today();
-    const bg = done >= 5 ? '#E6E6E6' : done > 0 ? '#6A6A6A' : 'transparent';
+    const bg = done >= 5 ? '#E8E2D6' : done > 0 ? '#6E675C' : 'transparent';
     strip += `<div class="stripday">
-      <div class="stripdot" style="background:${bg};border-color:${isToday?'#FFF':'#4A4A4A'}"></div>
-      <div class="stripletter" style="color:${isToday?'#FFF':'#6A6A6A'}">${'MTWTFSS'[(d.getDay()+6)%7]}</div>
+      <div class="stripdot" style="background:${bg};border-color:${isToday?'#8C2F2F':'#3A362F'}"></div>
+      <div class="stripletter" style="color:${isToday?'#8C2F2F':'#6E675C'}">${'MTWTFSS'[(d.getDay()+6)%7]}</div>
     </div>`;
   }
 
   const dailies = DAILY.map(h => {
     const on = !!dc[h.id];
     const wk = h.weekly ? weekCount(h.id) : null;
-    return `<button class="quest" onclick="act.toggle('${h.id}', event)">
-      <div class="qmark ${on?'on':''}"></div>
-      <div style="flex:1"><div class="qname ${on?'done':''}">${h.name}</div><div class="qsub">${h.sub}</div></div>
-      ${wk!==null?`<div class="badge" style="color:${wk>=h.weekly?'#FFF':'#6E6E6E'}">${wk}/${h.weekly}</div>`:''}
+    return `<button class="habit" onclick="act.toggle('${h.id}', event)">
+      <div class="checkbox ${on?'on':''}">${on?'✕':''}</div>
+      <div style="flex:1"><div class="hlabel ${on?'done':''}">${h.name}</div><div class="hsub">${h.sub}</div></div>
+      ${wk!==null?`<div class="badge" style="color:${wk>=h.weekly?'#E8E2D6':'#8C2F2F'}">${wk}/${h.weekly}</div>`:''}
       <div class="xp">+${PTS[h.id]}</div>
     </button>`;
   }).join('');
 
   const gymOn = !!dc.gym;
-  const gymRow = `<div class="quest" style="cursor:default">
-    <div class="qmark ${gymOn?'on':''}"></div>
-    <div style="flex:1"><div class="qname ${gymOn?'done':''}">Forge the Body</div><div class="qsub">log it under training</div></div>
+  const gymRow = `<div class="habit" style="cursor:default">
+    <div class="checkbox ${gymOn?'on':''}">${gymOn?'✕':''}</div>
+    <div style="flex:1"><div class="hlabel ${gymOn?'done':''}">Gym</div><div class="hsub">log it in the gym tab</div></div>
     <div class="xp">+${PTS.gym}</div>
   </div>`;
 
@@ -471,11 +394,11 @@ function renderQuests() {
     const hit = n >= w.target;
     return `<div class="wquest">
       <div style="display:flex;align-items:baseline;gap:8px">
-        <div class="qname" style="flex:1;font-size:14px;color:${hit?'#FFF':'#C8C8C8'}">${hit?'◆ ':''}${w.name}</div>
-        <div class="qsub">${n}/${w.target}</div>
+        <div class="hlabel" style="flex:1;font-size:14px;color:${hit?'#8C2F2F':'#E8E2D6'}">${hit?'✕ ':''}${w.name}</div>
+        <div class="hsub">${n}/${w.target}</div>
         <div class="xp">+${w.bonus}</div>
       </div>
-      <div class="qsub">${w.sub}</div>
+      <div class="hsub">${w.sub}</div>
       <div class="wbar"><div class="wfill" style="width:${n/w.target*100}%"></div></div>
     </div>`;
   }).join('');
@@ -483,7 +406,7 @@ function renderQuests() {
   const radiants = RADIANT.map(q => {
     const n = state.radiant[q.id] || 0;
     return `<div class="liftrow">
-      <div style="flex:1"><div class="qname" style="font-size:14px">${q.name}</div><div class="qsub">${q.sub}</div></div>
+      <div style="flex:1"><div class="hlabel" style="font-size:14px">${q.name}</div><div class="hsub">${q.sub}</div></div>
       ${n > 0 ? `<div class="radcount">×${n}</div>` : ''}
       <div class="xp">+${q.pts}</div>
       <button class="smallbtn hot" onclick="act.claimRadiant('${q.id}', event)">done</button>
@@ -491,15 +414,12 @@ function renderQuests() {
   }).join('');
 
   return `<div class="fadein">
-    <div class="streakbox"><div class="streaknum">${streak()}</div><div class="streaklabel">day streak · morning &amp; evening rites</div></div>
     <div class="strip">${strip}</div>
-    <div class="qsection">Daily Quests</div>
-    <div class="qsub" style="text-align:center;margin-bottom:2px">complete all seven · +${DAY_BONUS}</div>
+    <div class="section">Daily · all seven = +${DAY_BONUS}</div>
     ${dailies}${gymRow}
-    <div class="qsection">Weekly Quests</div>
+    <div class="section">Weekly</div>
     ${weeklies}
-    <div class="qsection">Radiant Quests</div>
-    <div class="qsub" style="text-align:center;margin-bottom:2px">repeatable · hard-won · honor system</div>
+    <div class="section">Radiant · repeatable · honor system</div>
     ${radiants}
   </div>`;
 }
@@ -510,26 +430,27 @@ function renderGym() {
   const rows = SESSIONS[next].map(ex => {
     const lift = state.lifts[ex];
     const improved = lift && lift.prev && (lift.weight > lift.prev.weight || (lift.weight === lift.prev.weight && lift.reps > lift.prev.reps));
-    const last = lift ? `last: ${lift.weight}kg × ${lift.reps}` : 'no record yet';
+    const last = lift ? `last: ${lift.weight}kg × ${lift.reps}` : 'no log yet';
     const controls = editLift === ex
       ? `<input id="lw" inputmode="decimal" placeholder="kg" value="${lift?lift.weight:''}">
          <input id="lr" inputmode="numeric" placeholder="reps" value="${lift?lift.reps:''}">
-         <button class="smallbtn hot" onclick="act.saveLift('${esc(ex)}')">save</button>`
+         <button class="smallbtn hot" onclick="act.saveLift('${esc(ex)}')">✕</button>`
       : `<button class="smallbtn" onclick="act.editLift('${esc(ex)}')">log</button>`;
     return `<div class="liftrow">
-      <div style="flex:1"><div style="font-size:15px;letter-spacing:1.5px;text-transform:uppercase">${ex}</div>
-      <div class="qsub">${last}${improved?' <span style="color:#FFF">▲</span>':''}</div></div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:700">${ex}</div>
+      <div class="hsub">${last}${improved?' <span style="color:#8C2F2F">▲</span>':''}</div></div>
       <div style="display:flex;gap:6px;align-items:center">${controls}</div>
     </div>`;
   }).join('');
   return `<div class="fadein">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;margin:16px 2px 4px">
-      <span class="cardtitle">The Training Hall</span><span class="sessionletter">${next}</span></div>
-    <div class="qsub" style="margin:0 2px 12px">3 sets · 8–12 reps · last 2 hard · the iron remembers</div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin:14px 2px 4px">
+      <span class="section" style="margin:0">Session</span>
+      <span style="font-family:'Pirata One',serif;font-size:36px">${next}</span></div>
+    <div class="hsub" style="margin:0 2px 12px">3 sets · 8–12 reps · last 2 hard · beat last numbers</div>
     ${rows}
     <button class="bigbtn" ${done?'disabled':''} onclick="act.completeSession(event)">
-      ${done ? '◆ training complete ◆' : 'complete training ' + next + ' · +' + PTS.gym}</button>
-    <div class="qsub" style="text-align:center;margin-top:10px">${state.gymTotal} total sessions</div>
+      ${done ? 'session logged ✕' : 'complete session ' + next + ' · +' + PTS.gym}</button>
+    <div class="hsub" style="text-align:center;margin-top:8px">${state.gymTotal} total sessions</div>
   </div>`;
 }
 
@@ -537,22 +458,22 @@ function renderRewards() {
   const bal = balance();
   const open = state.rewards.filter(r => !r.claimed).map(r => `
     <div class="liftrow">
-      <div style="flex:1"><div class="qname" style="font-size:14px">${esc(r.name)}</div>
-      <div class="qsub">${bal >= r.cost ? 'unlocked — claim your bounty' : (r.cost - bal) + ' pts to go'}</div></div>
-      <div class="badge" style="color:${bal>=r.cost?'#FFF':'#6E6E6E'}">${r.cost}</div>
+      <div style="flex:1"><div class="hlabel" style="font-size:14px">${esc(r.name)}</div>
+      <div class="hsub">${bal >= r.cost ? 'unlocked — claim it' : (r.cost - bal) + ' pts to go'}</div></div>
+      <div class="badge" style="color:${bal>=r.cost?'#E8E2D6':'#6E675C'}">${r.cost}</div>
       <button class="smallbtn ${bal>=r.cost?'hot':''}" ${bal<r.cost?'disabled':''} onclick="act.claim('${r.id}')">claim</button>
-      <button class="smallbtn" style="padding:6px 2px" onclick="act.removeReward('${r.id}')">✕</button>
+      <button class="smallbtn" style="border:none;padding:6px 2px" onclick="act.removeReward('${r.id}')">✕</button>
     </div>`).join('');
   const claimed = state.rewards.filter(r => r.claimed);
   const claimedHtml = claimed.length
-    ? `<div class="qsection">Claimed</div>` +
-      claimed.map(r => `<div class="qsub" style="padding:4px 2px;text-align:center">◆ ${esc(r.name)} · ${r.cost} pts · ${r.claimed}</div>`).join('')
+    ? `<div class="section">Claimed</div>` +
+      claimed.map(r => `<div class="hsub" style="padding:4px 2px">✕ ${esc(r.name)} · ${r.cost} pts · ${r.claimed}</div>`).join('')
     : '';
   return `<div class="fadein">
-    <div class="qsub" style="margin:16px 2px 10px;text-align:center">Every quest pays XP. Points spend on bounties of your own naming — set the prize, set the price, claim when it's banked.</div>
+    <div class="hsub" style="margin:14px 2px 10px">Every habit pays points. Spend them on rewards you name yourself — set the prize, set the price, claim when banked.</div>
     ${open}
-    <div style="display:flex;gap:6px;margin:16px 0 4px">
-      <input id="rn" placeholder="new bounty" style="flex:1;width:auto">
+    <div style="display:flex;gap:6px;margin:14px 0 4px">
+      <input id="rn" placeholder="new reward" style="flex:1;width:auto">
       <input id="rc" inputmode="numeric" placeholder="pts">
       <button class="smallbtn" onclick="act.addReward()">add</button>
     </div>
@@ -564,34 +485,34 @@ function renderJourney() {
   const bd = state.barberLast ? 21 - daysBetween(state.barberLast, today()) : null;
   const pd = state.photoLast ? 30 - daysBetween(state.photoLast, today()) : null;
   const counter = (v) => v === null ? '—' : v > 0 ? v + 'd' : 'DUE';
-  const col = (v) => v !== null && v <= 0 ? '#FFF' : '#E6E6E6';
+  const col = (v) => v !== null && v <= 0 ? '#8C2F2F' : '#E8E2D6';
   const kit = KIT.map(k => {
     const on = !!state.kit[k.id];
-    return `<button class="quest" style="padding:9px 2px" onclick="act.toggleKit('${k.id}', event)">
-      <div class="qmark ${on?'on':''}" style="width:10px;height:10px"></div>
-      <div style="flex:1;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:${on?'#5A5A5A':'#C8C8C8'}">${k.label}</div>
+    return `<button class="habit" style="padding:9px 2px" onclick="act.toggleKit('${k.id}', event)">
+      <div class="checkbox ${on?'on':''}" style="width:18px;height:18px;font-size:12px">${on?'✕':''}</div>
+      <div style="flex:1;font-size:13px;color:${on?'#6E675C':'#E8E2D6'};${on?'text-decoration:line-through':''}">${k.label}</div>
       <div class="xp">+${PTS_KIT}</div>
     </button>`;
   }).join('');
   const road = MILESTONES.map(m => {
     const hit = journeyDay() >= m.day;
-    return `<div style="display:flex;gap:14px;align-items:flex-start;padding:9px 2px;border-bottom:1px solid rgba(200,200,200,.09)">
-      <div style="font-weight:300;font-size:19px;width:50px;color:${hit?'#FFF':'#4A4A4A'};flex-shrink:0">${m.day}d</div>
-      <div><div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:${hit?'#FFF':'#7A7A7A'}">${hit?'◆ ':''}${m.label}</div>
-      <div class="qsub">${m.note}</div></div>
+    return `<div style="display:flex;gap:12px;align-items:flex-start;padding:8px 2px;border-bottom:1px solid #1E1B16">
+      <div style="font-family:'Pirata One',serif;font-size:20px;width:50px;color:${hit?'#8C2F2F':'#3A362F'};flex-shrink:0">${m.day}d</div>
+      <div><div style="font-size:14px;font-weight:700;color:${hit?'#E8E2D6':'#6E675C'}">${hit?'✕ ':''}${m.label}</div>
+      <div class="hsub">${m.note}</div></div>
     </div>`;
   }).join('');
   return `<div class="fadein">
-    <div style="display:flex;gap:12px;margin-top:16px">
-      <div class="card"><div class="cardtitle">The Barber</div>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <div class="card"><div class="cardtitle">Barber</div>
         <div class="counternum" style="color:${col(bd)}">${counter(bd)}</div>
         <button class="smallbtn" onclick="act.logBarber(event)">fresh cut · +${PTS_BARBER}</button></div>
-      <div class="card"><div class="cardtitle">The Likeness</div>
+      <div class="card"><div class="cardtitle">Progress pic</div>
         <div class="counternum" style="color:${col(pd)}">${counter(pd)}</div>
-        <button class="smallbtn" onclick="act.logPhoto(event)">captured · +${PTS_PHOTO}</button></div>
+        <button class="smallbtn" onclick="act.logPhoto(event)">logged · +${PTS_PHOTO}</button></div>
     </div>
-    <div class="qsection">Inventory</div>${kit}
-    <div class="qsection">The Questline</div>${road}
+    <div class="section">The Kit</div>${kit}
+    <div class="section">The Road</div>${road}
   </div>`;
 }
 
